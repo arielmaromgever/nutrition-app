@@ -8,7 +8,7 @@ const firebaseConfig = {
   projectId: "nutrition-app-819ce",
   storageBucket: "nutrition-app-819ce.firebasestorage.app",
   messagingSenderId: "500455184886",
-  appId: "1:500455184886:web:52559b6bb2b8bc54398fd7",
+  appId: "1:500455184886:web:52559b6bb2b8bc54398fd7"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -16,13 +16,21 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 
 export async function registerUser(email, password) {
-  const result = await createUserWithEmailAndPassword(auth, email, password);
-  return result.user;
+  try {
+    const result = await createUserWithEmailAndPassword(auth, email, password);
+    return result.user;
+  } catch (error) {
+    throw error;
+  }
 }
 
 export async function loginUser(email, password) {
-  const result = await signInWithEmailAndPassword(auth, email, password);
-  return result.user;
+  try {
+    const result = await signInWithEmailAndPassword(auth, email, password);
+    return result.user;
+  } catch (error) {
+    throw error;
+  }
 }
 
 export async function logout() {
