@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -15,8 +15,8 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
-export const registerUser = (email, password) => createUserWithEmailAndPassword(auth, email, password);
 export const loginUser = (email, password) => signInWithEmailAndPassword(auth, email, password);
+export const registerUser = (email, password) => createUserWithEmailAndPassword(auth, email, password);
 export const logout = () => signOut(auth);
 export const saveUserData = (uid, data) => setDoc(doc(db, "users", uid), data, { merge: true });
 export const loadUserData = (uid) => getDoc(doc(db, "users", uid)).then(s => s.exists() ? s.data() : null);
