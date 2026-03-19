@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from "react";
-import { auth, signInWithGoogle, logout, saveUserData, loadUserData } from "./firebase";
+import { auth, registerUser, loginUser, logout, saveUserData, loadUserData } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
 const API = "https://api.anthropic.com/v1/messages";
