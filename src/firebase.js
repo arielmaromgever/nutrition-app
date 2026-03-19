@@ -2,9 +2,8 @@ import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 
-// אריאל, הקוד הזה מתעלם מכל הגדרה קודמת של Vercel ומשתמש רק בזה:
 const firebaseConfig = {
-  apiKey: "AIzaSyDQcHrWW0lI-f8aGHxGdSa7uEwVrcY4Exg", 
+  apiKey: "AIzaSyDQcHrWW0lI-f8aGHxGdSa7uEwVrcY4Exg",
   authDomain: "nutrition-app-819ce.firebaseapp.com",
   projectId: "nutrition-app-819ce",
   storageBucket: "nutrition-app-819ce.firebasestorage.app",
@@ -16,8 +15,8 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
-export const loginUser = (e, p) => signInWithEmailAndPassword(auth, e, p);
-export const registerUser = (e, p) => createUserWithEmailAndPassword(auth, e, p);
+export const loginUser = (email, password) => signInWithEmailAndPassword(auth, email, password);
+export const registerUser = (email, password) => createUserWithEmailAndPassword(auth, email, password);
 export const logout = () => signOut(auth);
 export const saveUserData = (uid, data) => setDoc(doc(db, "users", uid), data, { merge: true });
 export const loadUserData = (uid) => getDoc(doc(db, "users", uid)).then(s => s.exists() ? s.data() : null);
