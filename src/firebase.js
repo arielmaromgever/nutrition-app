@@ -3,7 +3,7 @@ import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, si
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: String("AIzaSyDQcHrWW0lI-f8aGHxGdSa7uEwVrcY4Exg").trim(),
+  apiKey: "AIzaSyDQcHrWW0lI-f8aGHxGdSa7uEwVrcY4Exg",
   authDomain: "nutrition-app-819ce.firebaseapp.com",
   projectId: "nutrition-app-819ce",
   storageBucket: "nutrition-app-819ce.firebasestorage.app",
