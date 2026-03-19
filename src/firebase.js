@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -15,33 +15,8 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
-export async function registerUser(email, password) {
-  try {
-    const result = await createUserWithEmailAndPassword(auth, email, password);
-    return result.user;
-  } catch (error) {
-    throw error;
-  }
-}
-
-export async function loginUser(email, password) {
-  try {
-    const result = await signInWithEmailAndPassword(auth, email, password);
-    return result.user;
-  } catch (error) {
-    throw error;
-  }
-}
-
-export async function logout() {
-  await signOut(auth);
-}
-
-export async function saveUserData(uid, data) {
-  await setDoc(doc(db, "users", uid), data, { merge: true });
-}
-
-export async function loadUserData(uid) {
-  const snap = await getDoc(doc(db, "users", uid));
-  return snap.exists() ? snap.data() : null;
-}
+export const login = (email, password) => signInWithEmailAndPassword(auth, email, password);
+export const register = (email, password) => createUserWithEmailAndPassword(auth, email, password);
+export const logout = () => signOut(auth);
+export const saveStats = (uid, data) => setDoc(doc(db, "users", uid), data, { merge: true });
+export const getStats = (uid) => getDoc(doc(db, "users", uid)).then(s => s.exists() ? s.data() : null);
