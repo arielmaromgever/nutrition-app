@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult, signOut } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -14,20 +14,15 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
-const provider = new GoogleAuthProvider();
 
-export async function signInWithGoogle() {
-  await signInWithRedirect(auth, provider);
+export async function registerUser(email, password) {
+  const result = await createUserWithEmailAndPassword(auth, email, password);
+  return result.user;
 }
 
-export async function handleRedirectResult() {
-  try {
-    const result = await getRedirectResult(auth);
-    return result?.user || null;
-  } catch (e) {
-    console.error(e);
-    return null;
-  }
+export async function loginUser(email, password) {
+  const result = await signInWithEmailAndPassword(auth, email, password);
+  return result.user;
 }
 
 export async function logout() {
