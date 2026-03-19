@@ -15,8 +15,9 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
+// Core Authentication and Database Functions
 export const login = (email, password) => signInWithEmailAndPassword(auth, email, password);
 export const register = (email, password) => createUserWithEmailAndPassword(auth, email, password);
 export const logout = () => signOut(auth);
-export const saveStats = (uid, data) => setDoc(doc(db, "users", uid), data, { merge: true });
-export const getStats = (uid) => getDoc(doc(db, "users", uid)).then(s => s.exists() ? s.data() : null);
+export const saveUserData = (uid, data) => setDoc(doc(db, "users", uid), data, { merge: true });
+export const getUserData = (uid) => getDoc(doc(db, "users", uid)).then(s => s.exists() ? s.data() : null);
